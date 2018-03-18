@@ -1,0 +1,10 @@
+rootProject.name = 'grpc-example'
+
+gradle.allprojects {
+    ext.PrivateNexus = {
+        maven {url 'http://jcenter.bintray.com'}
+        mavenCentral()
+    }
+    buildscript.repositories PrivateNexus
+    repositories PrivateNexus
+}

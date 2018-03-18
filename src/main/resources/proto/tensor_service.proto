@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package gen;
+option java_multiple_files = true;
+option java_package = "gen";
+
+import "tensorflow/core/framework/tensor.proto";
+
+service TensorService {
+	rpc Apply(tensorflow.TensorProto) returns (tensorflow.TensorProto) {}
+}

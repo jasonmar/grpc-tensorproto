@@ -1,0 +1,54 @@
+apply plugin: 'scala'
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+
+buildscript {
+    repositories {
+        maven {url 'http://jcenter.bintray.com'}
+        mavenCentral()
+    }
+    apply from: file('versions.gradle')
+    dependencies {
+        classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufGradlePluginVersion"
+    }
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:$scalaVersion"
+    compile "org.tensorflow:tensorflow:$tensorflowVersion"
+    compile "org.tensorflow:proto:$tensorflowVersion"
+    compile "io.grpc:grpc-netty:$grpcVersion"
+    compile "io.grpc:grpc-protobuf:$grpcVersion"
+    compile "io.grpc:grpc-stub:$grpcVersion"
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:$protocVersion"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+}
+
+sourceSets {
+    main {
+        proto {
+            // srcDir "src/main/proto" included by default
+            srcDir "src/main/resources/proto"
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
