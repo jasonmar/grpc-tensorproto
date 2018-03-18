@@ -6,4 +6,5 @@ ext {
     protocVersion = '3.5.1-1'
     protobufGradlePluginVersion = '0.8.4'
     tensorflowVersion = '1.6.0'
+    scalatestVersion = '3.0.5'
 }

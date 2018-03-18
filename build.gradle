@@ -20,6 +20,7 @@ dependencies {
     compile "io.grpc:grpc-netty:$grpcVersion"
     compile "io.grpc:grpc-protobuf:$grpcVersion"
     compile "io.grpc:grpc-stub:$grpcVersion"
+    testCompile "org.scalatest:scalatest_$baseScalaVersion:$scalatestVersion"
 }
 
 protobuf {
